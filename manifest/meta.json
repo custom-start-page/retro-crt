@@ -1,0 +1,13 @@
+{
+    "name": "Retro CRT",
+    "slug": "retro-crt",
+    "outputDir": "build",
+    "author": {
+        "name": "scar45",
+        "link": "https://github.com/custom-start-page/retro-crt-startpage"
+    },
+    "preview": "preview.jpg",
+    "features": [
+        "links"
+    ]
+}

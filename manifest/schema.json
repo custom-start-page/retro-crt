@@ -1,0 +1,67 @@
+{
+  "required": [
+    "link"
+  ],
+  "properties": {
+    "link": {
+      "type": "array",
+      "title": "Links",
+      "description": "Links to other websites",
+      "items": {
+        "type": "object",
+        "title": "Link",
+        "required": [
+          "name",
+          "url",
+          "invert",
+          "tags"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "Name that should be displayed",
+            "examples": [
+              "Wallabag"
+            ]
+          },
+          "url": {
+            "type": "string",
+            "title": "URL",
+            "description": "Full URL to another website",
+            "examples": [
+              "https://wallabag.org/en"
+            ]
+          },
+          "icon": {
+            "type": "string",
+            "title": "Icon",
+            "description": "A square image, at least 80px by 80px. Can be coloured as it will be changed to fit at runtime",
+            "examples": [
+              "icon-wallabag.png"
+            ]
+          },
+          "invert": {
+            "type": "boolean",
+            "title": "Invert",
+            "description": "Invert the colours of the icon. Usually not required unless the icon is hard to see",
+            "default": false
+          },
+          "tags": {
+            "type": "array",
+            "title": "Tags",
+            "description": "Tags to filter by",
+            "items": {
+              "type": "string",
+              "title": "Tag",
+              "examples": [
+                "bookmarks",
+                "links"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

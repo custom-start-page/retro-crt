@@ -76,43 +76,44 @@ function sortAlpha(a,b){
 // Read the 'links.json' file for data to display
 function loadJSON() {
     //console.log("Loading JSON object of startpage links...")
-    $.getJSON('links.json', function(links) {
-        $(".shortcuts").html("");
-        $.each(links.link, function(i,data){
-            if (data.invert == true) {
-                $(".shortcuts").append('' +
-                    '<li class="tagged-item" data-item-tags="'+data.tags+'">' +
-                    '<a class="bookmark" href="'+data.url+'" target="_blank">' +
-                    '<img class="retro invert" src="images/'+data.icon+'"/>' +
-                    '<span class="link-name">'+data.name+'</span>' +
-                    '<br><span class="link-url">'+data.url+'</span>' +
-                    '<br><span class="tags"></span><br>' +
-                    '</a></li>'
-                );
-            } else {
-                $(".shortcuts").append('' +
-                    '<li class="tagged-item" data-item-tags="'+data.tags+'">' +
-                    '<a class="bookmark" href="'+data.url+'" target="_blank">' +
-                    '<img class="retro" src="images/'+data.icon+'"/>' +
-                    '<span class="link-name">'+data.name+'</span>' +
-                    '<br><span class="link-url">'+data.url+'</span>' +
-                    '<br><span class="tags"></span><br>' +
-                    '</a></li>'
-                );
-            }
-            $.each(data.tags, function(t,tag){
-                //console.log(tag);
-                $(".tags").eq(i).append('<span>'+tag+'</span>');
+    new CustomStartStorage().get()
+        .then(links => {
+            $(".shortcuts").html("");
+            $.each(links.link, function(i,data){
+                if (data.invert == true) {
+                    $(".shortcuts").append('' +
+                        '<li class="tagged-item" data-item-tags="'+data.tags+'">' +
+                        '<a class="bookmark" href="'+data.url+'" target="_blank">' +
+                        '<img class="retro invert" src="'+data.icon+'"/>' +
+                        '<span class="link-name">'+data.name+'</span>' +
+                        '<br><span class="link-url">'+data.url+'</span>' +
+                        '<br><span class="tags"></span><br>' +
+                        '</a></li>'
+                    );
+                } else {
+                    $(".shortcuts").append('' +
+                        '<li class="tagged-item" data-item-tags="'+data.tags+'">' +
+                        '<a class="bookmark" href="'+data.url+'" target="_blank">' +
+                        '<img class="retro" src="'+data.icon+'"/>' +
+                        '<span class="link-name">'+data.name+'</span>' +
+                        '<br><span class="link-url">'+data.url+'</span>' +
+                        '<br><span class="tags"></span><br>' +
+                        '</a></li>'
+                    );
+                }
+                $.each(data.tags, function(t,tag){
+                    //console.log(tag);
+                    $(".tags").eq(i).append('<span>'+tag+'</span>');
+                });
             });
+
+            $('div.tag-list').tagSort({
+                items: 'li.tagged-item',
+                reset: '.tagsort-reset',
+                fadeTime: 420
+            });
+            $('div.tag-list span:not(.tagsort-reset)').sort(sortAlpha).appendTo('div.tag-list');
         });
-    }).done(function(){
-        $('div.tag-list').tagSort({
-            items: 'li.tagged-item',
-            reset: '.tagsort-reset',
-            fadeTime: 420
-        });
-        $('div.tag-list span:not(.tagsort-reset)').sort(sortAlpha).appendTo('div.tag-list');
-    });
 }
 
 // Weather support via simpleWeather v3.1.0 - http://simpleweatherjs.com
